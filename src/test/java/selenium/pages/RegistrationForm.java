@@ -1,14 +1,20 @@
-package selenium;
+package selenium.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+import selenium.base.BasePage;
 
-public class RegistrationForm extends BasePage{
+import static org.testng.Assert.assertTrue;
+
+public class RegistrationForm extends BasePage {
 
     public RegistrationForm(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(id = "fname")
     private WebElement firstNameField;
 
@@ -36,6 +42,7 @@ public class RegistrationForm extends BasePage{
     public void EnterFamilyName(String familyName){
         familyNameField.sendKeys(familyName);
     }
+
     public void EnterEmail(String email){
         emailField.sendKeys(email);
     }
