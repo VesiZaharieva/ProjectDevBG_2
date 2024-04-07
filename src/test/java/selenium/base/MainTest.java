@@ -39,9 +39,9 @@ public class MainTest {
             case "firefox":
                 driver = DriverFactory.getFirefoxDriver(implicitWait);
                 break;
-            //case "edge":
-                //driver = DriverFactory.getEdgeDriver(implicitWait);
-                //break;
+            case "edge":
+                driver = DriverFactory.getEdgeDriver(implicitWait);
+                break;
             default:
                 throw new IllegalStateException("Unsupported browser type");
 

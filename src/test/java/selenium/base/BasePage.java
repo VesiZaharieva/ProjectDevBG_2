@@ -25,7 +25,9 @@ public class BasePage {
     public void waitForElementToBeVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-
+    public void waitForElementTobeClickable(WebElement element){
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
     public void waitForElementToBeStale(WebElement element) {
         wait.until(ExpectedConditions.stalenessOf(element));
     }
@@ -37,9 +39,6 @@ public class BasePage {
     public void scrollIntoViewWithJS(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
-    public void switchToCookieWindow(){
-        String handle = driver.getWindowHandle();
-        driver.switchTo().window(handle);
-    }
+
 
 }

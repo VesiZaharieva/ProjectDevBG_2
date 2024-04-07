@@ -31,12 +31,18 @@ public class RegistrationForm extends BasePage {
     @FindBy(id = "subscriber-register-consent")
     private WebElement checkboxGDPR;
 
-    @FindBy(css = "[name=Submitted]")
+    @FindBy(xpath = "//input[@name='Submitted']")
     private WebElement submitButton;
+
+    @FindBy (xpath = "//div[@class='open popup-notice-wrapper error']")
+    private WebElement wrongSumMessage;
+
+    @FindBy (id = "consent-error")
+    private WebElement errorMessageGDPR;
 
     public void EnterFirstName(String firstName){
         firstNameField.sendKeys(firstName);
-    }
+        }
     public void EnterFamilyName(String familyName){
         familyNameField.sendKeys(familyName);
     }
@@ -53,8 +59,26 @@ public class RegistrationForm extends BasePage {
     public void MarkCheckboxGDPR(){
         checkboxGDPR.click();
     }
+
     public void ClickSubmitButton(){
+        driver.manage().window().fullscreen();
+        waitForElementTobeClickable(submitButton);
         submitButton.click();
+    }
+
+    public String FirstNameBorderColor(){
+        String borderColor = firstNameField.getCssValue("border");
+        return borderColor;
+    }
+    public Boolean VisibilityOfWrongSumMessage(){
+        return wrongSumMessage.isDisplayed();
+    }
+    public Boolean VisibilityOfErrorMessageGDPR(){
+        return errorMessageGDPR.isDisplayed();
+    }
+    public String ColorOfErrorMessageGDPR(){
+        String messageColor = errorMessageGDPR.getCssValue("border");
+        return messageColor;
     }
 
 }

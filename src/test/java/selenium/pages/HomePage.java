@@ -10,18 +10,27 @@ public class HomePage extends BasePage{
     public HomePage(WebDriver driver) {
         super(driver);
     }
-    @FindBy (className = "subscriber-register-wrapper open")
-    private WebElement registrationWindow;
+    @FindBy (xpath = "//a[@class='button bold subscriber-register-btn']")
+    private WebElement userRegisterButton;
+
+    @FindBy(xpath = "//a[@class='category-name'][contains(text(), 'Quality Assurance')]")
+    private WebElement qaLink;
+
+    @FindBy(xpath = "//div[@class='child-term']//div[contains(@class,'icon-automation-qa')]")
+    private WebElement qaAutomationLink;
 
 
 
-
-
-    //public void UserRegistrateClick() {
-         //userRegisterButton.click();
-    //}
-    public void checkRegistrationForm(){
-        Assert.assertTrue(registrationWindow.isDisplayed());
+    public void UserRegistrateClick() {
+         userRegisterButton.click();
+    }
+    public String qaLinkClick(){
+        qaLink.click();
+        return driver.getCurrentUrl();
+    }
+    public String qaAutomationLinkClick(){
+        qaAutomationLink.click();
+        return driver.getCurrentUrl();
     }
 
 
