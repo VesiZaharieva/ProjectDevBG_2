@@ -1,12 +1,9 @@
-package tests;
-import org.openqa.selenium.By;
+package selenium.tests;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import selenium.base.MainTest;
+import selenium.pages.Cookies;
 import selenium.pages.HomePage;
 import selenium.pages.RegistrationForm;
 
@@ -17,23 +14,21 @@ import static org.testng.AssertJUnit.assertEquals;
 
 
 public class HomePageTest extends MainTest {
-    HomePage homePageHeader;
+    HomePage homePage;
+    Cookies cookies;
     RegistrationForm registrationForm;
-    WebDriverWait wait;
-
-
 
 @Test
-public void startRegistration(){
-    homePageHeader = new HomePage(driver);
-    WebElement element = driver.findElement(By.id("cmplz-cookiebanner-container"));
-    homePageHeader.UserRegistrateClick();
+public void StartRegistration(){
+    cookies = new Cookies(driver);
+    cookies.ClickCookie();
+    //homePage.UserRegistrateClick();
 }
 
 
 
     @Test
-    public void beginRegistration() {
+    public void BeginRegistration() {
     WebDriver driver = new ChromeDriver();
             driver.get("https://www.dev.bg");
                 driver.manage().window().maximize();
@@ -55,8 +50,8 @@ public void startRegistration(){
         //driver.switchTo().window(handle);
         //acceptCookieButton.click();
         //
-        //homePageHeader.UserRegistrateClick();
-        //homePageHeader.checkRegistrationForm();By.className("cmplz-btn cmplz-accept")
+        //homePage.UserRegistrateClick();
+        //homePage.checkRegistrationForm();By.className("cmplz-btn cmplz-accept")
     }
 @Test
     public void RegisterEmptyFirstName(){

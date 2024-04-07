@@ -13,13 +13,13 @@ import java.time.Duration;
 
 public class BasePage {
     public WebDriver driver;
-    WebDriverWait wait;
+    public WebDriverWait wait;
 
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void waitForElementToBeVisible(WebElement element) {
@@ -41,4 +41,5 @@ public class BasePage {
         String handle = driver.getWindowHandle();
         driver.switchTo().window(handle);
     }
+
 }

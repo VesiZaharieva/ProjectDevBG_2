@@ -7,11 +7,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import dev.selenium.driver.DriverFactory;
-
 import java.io.File;
-
 import org.apache.commons.io.FileUtils;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -25,13 +22,7 @@ public class MainTest {
     private int implicitWait;
     private String browser;
 
-    @BeforeMethod
-    public void beforeSetup() {
-        setUpBrowserDriver();
-        loadUrl();
-    }
-
-    private void setUpBrowserDriver() {
+        private void setUpBrowserDriver() {
         try (FileInputStream configFile = new FileInputStream("src/test/resources/config.properties")) {
             Properties config = new Properties();
             config.load(configFile);
@@ -42,14 +33,15 @@ public class MainTest {
             e.printStackTrace();
         }
         switch (browser) {
-            case "Chrome":
+            case "chrome":
                 driver = DriverFactory.getChromeDriver(implicitWait);
                 break;
-            case "Firefox":
+            case "firefox":
                 driver = DriverFactory.getFirefoxDriver(implicitWait);
                 break;
-            case "Edge":
-                driver = DriverFactory.getEdgeDriver(implicitWait);
+            //case "edge":
+                //driver = DriverFactory.getEdgeDriver(implicitWait);
+                //break;
             default:
                 throw new IllegalStateException("Unsupported browser type");
 
@@ -64,13 +56,17 @@ public class MainTest {
         WebDriver.Window coockieWindow = driver.manage().window();
 
     }
-
+    @BeforeMethod
+    public void beforeSetup() {
+        setUpBrowserDriver();
+        loadUrl();
+    }
     @AfterMethod
     public void tearDown(ITestResult result) {
         if (ITestResult.FAILURE == result.getStatus()) {
             TakesScreenshot screenshot = (TakesScreenshot) driver;
             File source = screenshot.getScreenshotAs(OutputType.FILE);
-            String timestamp = new SimpleDateFormat("YYYY_MM_DD__hh_mm_ss").format(new Date());
+            String timestamp = new SimpleDateFormat("yyyy_MM_dd__hh_mm_ss").format(new Date());
             String fileName = result.getName() + "_" + timestamp + ".png";
             try {
                 FileUtils.copyFile(source, new File("./Screenshots/" + fileName));
