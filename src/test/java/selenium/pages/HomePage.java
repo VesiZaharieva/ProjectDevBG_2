@@ -23,6 +23,8 @@ public class HomePage extends BasePage{
 
 
 
+
+
     public Boolean UserRegistrateClick() {
          userRegisterButton.click();
          return registerScreen.isDisplayed();

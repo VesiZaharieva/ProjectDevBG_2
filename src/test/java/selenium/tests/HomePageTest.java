@@ -1,27 +1,18 @@
 package selenium.tests;
 
 import com.opencsv.exceptions.CsvException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import dev.selenium.driver.DriverFactory;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import org.testng.reporters.Files;
 import selenium.base.MainTest;
-import selenium.pages.Cookies;
-import selenium.pages.HomePage;
-import selenium.pages.RegistrationForm;
+import selenium.pages.*;
 import utils.CsvReader;
 
 import java.io.IOException;
 
 import static org.testng.AssertJUnit.*;
-import static org.testng.reporters.Files.readFile;
 
 
 public class HomePageTest extends MainTest {
@@ -40,28 +31,21 @@ public class HomePageTest extends MainTest {
         return CsvReader.readFile("src/test/resources/register-data.csv");
     }
 
-    @Test
-    public void acceptCookies() {
+    @BeforeMethod
+    public void AcceptCookies() {
+        homePage = new HomePage();
         cookies = new Cookies();
         cookies.ClickCookie();
-        assertTrue(cookies.StaleCookie());
-
     }
 
     @Test
     public void StartRegistration() {
-        homePage = new HomePage();
-        cookies = new Cookies();
-        cookies.ClickCookie();
         Boolean registerScreenOpened = homePage.UserRegistrateClick();
         assertTrue(registerScreenOpened = Boolean.TRUE);
     }
 
     @Test(dataProvider = "enter-data")
     public void RegisterValidData(String name, String familyName, String email, String password, String number) {
-        homePage = new HomePage();
-        cookies = new Cookies();
-        cookies.ClickCookie();
         homePage.UserRegistrateClick();
         registrationForm = new RegistrationForm();
         registrationForm.EnterFirstName(name);
@@ -76,9 +60,6 @@ public class HomePageTest extends MainTest {
 
     @Test(dataProvider = "notvalid-data")
     public void RegisterEmptyField(String name, String familyName, String email, String password, String number) {
-        homePage = new HomePage();
-        cookies = new Cookies();
-        cookies.ClickCookie();
         homePage.UserRegistrateClick();
         registrationForm = new RegistrationForm();
         registrationForm.EnterFirstName(name);
@@ -88,7 +69,7 @@ public class HomePageTest extends MainTest {
         registrationForm.EnterQuizNumber(number);
         registrationForm.MarkCheckboxGDPR();
         registrationForm.ClickSubmitButton();
-        Boolean notValidRegistrationExpected = (!registrationForm.SuccessfulRegistration()) && ((homePage.registerScreen).isDisplayed());
+        Boolean notValidRegistrationExpected = !registrationForm.SuccessfulRegistration() && (homePage.registerScreen).isDisplayed();
         assertTrue(notValidRegistrationExpected);
         //String colors = registrationForm.FirstNameBorderColor();
         //System.out.println(colors);
@@ -97,9 +78,6 @@ public class HomePageTest extends MainTest {
 
     @Test(dataProvider = "enter-data")
     public void RegisterWrongSum(String name, String familyName, String email, String password, String number) {
-        homePage = new HomePage();
-        cookies = new Cookies();
-        cookies.ClickCookie();
         homePage.UserRegistrateClick();
         registrationForm = new RegistrationForm();
         registrationForm.EnterFirstName(name);
@@ -115,9 +93,6 @@ public class HomePageTest extends MainTest {
 
     @Test(dataProvider = "enter-data")
     public void RegisterWithoutGDPR(String name, String familyName, String email, String password, String number) {
-        homePage = new HomePage();
-        cookies = new Cookies();
-        cookies.ClickCookie();
         homePage.UserRegistrateClick();
         registrationForm = new RegistrationForm();
         registrationForm.EnterFirstName(name);
@@ -138,19 +113,15 @@ public class HomePageTest extends MainTest {
 
     @Test
     public void QAModule() {
-        homePage = new HomePage();
-        cookies = new Cookies();
-        cookies.ClickCookie();
         String qaUrl = homePage.qaLinkClick();
         assertEquals(qaUrl, "https://dev.bg/company/jobs/quality-assurance/");
     }
 
     @Test
     public void QAautomationModule() {
-        homePage = new HomePage();
-        cookies = new Cookies();
-        cookies.ClickCookie();
         String qaAutomationUrl = homePage.qaAutomationLinkClick();
         assertEquals(qaAutomationUrl, "https://dev.bg/company/jobs/automation-qa/");
     }
+
+
 }

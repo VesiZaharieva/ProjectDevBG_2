@@ -1,8 +1,12 @@
 package selenium.pages;
 
+import dev.selenium.driver.DriverFactory;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.testng.annotations.BeforeMethod;
 import selenium.base.BasePage;
 
@@ -14,13 +18,8 @@ import java.util.ListIterator;
 import static java.util.List.*;
 
 public class QAautomationPage extends BasePage {
-    //public QAautomationPage(WebDriver driver) { super(driver);}
-
-    Cookies cookies;
-    QAautomationPage qaAutomationPage;
-    HomePage homePage;
-    List<WebElement> checkboxes;
-
+    Actions actions;
+    List<WebElement> Pagination;
 
     @FindBy(xpath = "//span[@class='facetwp-display-value'][contains(text(),'Fully Remote')]")
     private WebElement filterRemote;
@@ -40,16 +39,29 @@ public class QAautomationPage extends BasePage {
     @FindBy(xpath = "//span[@class='facetwp-selection-value'][@data-value='varna']")
     private WebElement labelVarnaSelection;
 
-    @FindBy(xpath = "//div[contains(@class,'facetwp-checkbox')]")
-    List<WebElement> Checkboxes;
+    @FindBy(xpath = "//div[contains(@class, 'job-list-item')][@data-job-id='320240']")
+    private WebElement advMyPos;
+
+    @FindBy(css = ".pagination-wrap")
+    private WebElement paginationContainer;
+
+    @FindBys({
+            @FindBy(css = ".job-listing-category-archive-container"),
+            @FindBy(css = ".pagination-wrap"),
+            @FindBy(css = ".facetwp-pager")
+    })
+    private List<WebElement> pagination;
+
+    @FindBy(xpath = "//div[contains(@class, 'job-list-item')][@data-job-id='326517']")
+    private WebElement advLuxsoft;
 
     public Boolean VisibilityOfFilterRemote() {
-        driver.manage().window().fullscreen();
+        DriverFactory.getDriver().manage().window().fullscreen();
         return filterRemote.isDisplayed();
     }
 
     public Boolean VisibilityOfFilterVarna() {
-        driver.manage().window().fullscreen();
+        DriverFactory.getDriver().manage().window().fullscreen();
         return filterVarna.isDisplayed();
     }
 
@@ -70,7 +82,35 @@ public class QAautomationPage extends BasePage {
         waitForElementToBeVisible(labelRemoteSelection);
         checkboxFilterVarna.click();
         waitForElementToBeVisible(labelVarnaSelection);
-       Boolean displayFilterLabels = labelRemoteSelection.isDisplayed() && labelVarnaSelection.isDisplayed();
+        Boolean displayFilterLabels = labelRemoteSelection.isDisplayed() && labelVarnaSelection.isDisplayed();
         return displayFilterLabels;
     }
+
+    public String clickAdvMyPos() {
+        advMyPos.click();
+        return DriverFactory.getDriver().getCurrentUrl();
+    }
+
+    public String scrollAndClickAdvMyPos() {
+        actions = new Actions(DriverFactory.getDriver());
+        actions.scrollToElement(advMyPos).perform();
+        advMyPos.click();
+        return DriverFactory.getDriver().getCurrentUrl();
+    }
+
+    public String clickPageTwo() {
+        actions = new Actions(DriverFactory.getDriver());
+        actions.scrollToElement(paginationContainer).perform();
+        actions.moveToElement(pagination.get(2));
+        pagination.get(2).click();
+        return DriverFactory.getDriver().getCurrentUrl();
+    }
+
+    public String clickAdvLuxsoft() {
+        actions = new Actions(DriverFactory.getDriver());
+        actions.scrollToElement(advLuxsoft).perform();
+        advLuxsoft.click();
+        return DriverFactory.getDriver().getCurrentUrl();
+    }
+
 }
