@@ -7,11 +7,13 @@ import org.testng.Assert;
 import selenium.base.BasePage;
 
 public class HomePage extends BasePage{
-    public HomePage(WebDriver driver) {
-        super(driver);
-    }
+    //public HomePage(WebDriver driver) {super(driver);}
+
     @FindBy (xpath = "//a[@class='button bold subscriber-register-btn']")
     private WebElement userRegisterButton;
+
+    @FindBy (className = "subscriber-register-wrapper")
+    public WebElement registerScreen;
 
     @FindBy(xpath = "//a[@class='category-name'][contains(text(), 'Quality Assurance')]")
     private WebElement qaLink;
@@ -21,9 +23,11 @@ public class HomePage extends BasePage{
 
 
 
-    public void UserRegistrateClick() {
+    public Boolean UserRegistrateClick() {
          userRegisterButton.click();
-    }
+         return registerScreen.isDisplayed();
+         }
+
     public String qaLinkClick(){
         qaLink.click();
         return driver.getCurrentUrl();

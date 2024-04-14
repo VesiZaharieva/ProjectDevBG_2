@@ -1,5 +1,4 @@
 package selenium.base;
-
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -17,12 +16,12 @@ import java.util.Properties;
 
 
 public class MainTest {
-    public WebDriver driver;
+    //public WebDriver driver;
     private String url;
     private int implicitWait;
     private String browser;
 
-        private void setUpBrowserDriver() {
+    private void setUpBrowserDriver() {
         try (FileInputStream configFile = new FileInputStream("src/test/resources/config.properties")) {
             Properties config = new Properties();
             config.load(configFile);
@@ -34,13 +33,13 @@ public class MainTest {
         }
         switch (browser) {
             case "chrome":
-                driver = DriverFactory.getChromeDriver(implicitWait);
+                DriverFactory.setChromeDriver(implicitWait);
                 break;
             case "firefox":
-                driver = DriverFactory.getFirefoxDriver(implicitWait);
+                DriverFactory.setFirefoxDriver(implicitWait);
                 break;
             case "edge":
-                driver = DriverFactory.getEdgeDriver(implicitWait);
+                DriverFactory.setEdgeDriver(implicitWait);
                 break;
             default:
                 throw new IllegalStateException("Unsupported browser type");
@@ -49,22 +48,21 @@ public class MainTest {
     }
 
     private void loadUrl() {
+        WebDriver driver = DriverFactory.getDriver();
         driver.get(url);
     }
 
-    private void acceptCookies (){
-        WebDriver.Window coockieWindow = driver.manage().window();
-
-    }
     @BeforeMethod
     public void beforeSetup() {
         setUpBrowserDriver();
         loadUrl();
     }
+
     @AfterMethod
     public void tearDown(ITestResult result) {
+        WebDriver driver = DriverFactory.getDriver();
         if (ITestResult.FAILURE == result.getStatus()) {
-            TakesScreenshot screenshot = (TakesScreenshot) driver;
+            TakesScreenshot screenshot = (TakesScreenshot)driver;
             File source = screenshot.getScreenshotAs(OutputType.FILE);
             String timestamp = new SimpleDateFormat("yyyy_MM_dd__hh_mm_ss").format(new Date());
             String fileName = result.getName() + "_" + timestamp + ".png";
@@ -75,8 +73,7 @@ public class MainTest {
                 e.printStackTrace();
             }
         }
-
-        //driver.quit();
+        DriverFactory.quitDriver();
     }
 }
 

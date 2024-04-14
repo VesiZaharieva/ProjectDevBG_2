@@ -20,9 +20,9 @@ public class QAautomationPageTest extends MainTest {
 
     @BeforeMethod
     public void openQAautomationPage() {
-        cookies = new Cookies(driver);
-        qaAutomationPage = new QAautomationPage(driver);
-        homePage = new HomePage(driver);
+        cookies = new Cookies();
+        qaAutomationPage = new QAautomationPage();
+        homePage = new HomePage();
         cookies.ClickCookie();
         homePage.qaAutomationLinkClick();
     }

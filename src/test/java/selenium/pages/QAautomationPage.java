@@ -14,9 +14,7 @@ import java.util.ListIterator;
 import static java.util.List.*;
 
 public class QAautomationPage extends BasePage {
-    public QAautomationPage(WebDriver driver) {
-        super(driver);
-    }
+    //public QAautomationPage(WebDriver driver) { super(driver);}
 
     Cookies cookies;
     QAautomationPage qaAutomationPage;

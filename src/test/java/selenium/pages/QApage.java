@@ -8,9 +8,9 @@ import selenium.base.BasePage;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class QApage extends BasePage {
-    public QApage(WebDriver driver) {
-        super(driver);
-    }
+    //public QApage(WebDriver driver) {
+        //super(driver);
+    //}
     @FindBy(css = "[class='miniboard-image']")
     private WebElement qaLogo;
 

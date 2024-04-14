@@ -11,7 +11,7 @@ public class QApageTest extends MainTest {
 
     @Test
     public void VisibilityOfQAlogo(){
-        qaPage = new QApage(driver);
+        qaPage = new QApage();
         Boolean qaLogoVisible = qaPage.qaLogoDisplayed();
         assertTrue(qaLogoVisible == Boolean.TRUE);
     }

@@ -9,9 +9,7 @@ import static org.testng.Assert.assertTrue;
 
 public class RegistrationForm extends BasePage {
 
-    public RegistrationForm(WebDriver driver) {
-        super(driver);
-    }
+    //public RegistrationForm(WebDriver driver) {super(driver);}
 
     @FindBy(id = "fname")
     private WebElement firstNameField;
@@ -34,51 +32,65 @@ public class RegistrationForm extends BasePage {
     @FindBy(xpath = "//input[@name='Submitted']")
     private WebElement submitButton;
 
-    @FindBy (xpath = "//div[@class='open popup-notice-wrapper error']")
+    @FindBy(xpath = "//div[@class='open popup-notice-wrapper error']")
     private WebElement wrongSumMessage;
 
-    @FindBy (id = "consent-error")
+    @FindBy(id = "consent-error")
     private WebElement errorMessageGDPR;
 
-    public void EnterFirstName(String firstName){
+    @FindBy(xpath = "//div[contains(@class, 'popup-notice-wrapper')]")
+    private WebElement successfulRegistrationMessage;
+
+    public void EnterFirstName(String firstName) {
         firstNameField.sendKeys(firstName);
-        }
-    public void EnterFamilyName(String familyName){
+    }
+
+    public void EnterFamilyName(String familyName) {
         familyNameField.sendKeys(familyName);
     }
 
-    public void EnterEmail(String email){
+    public void EnterEmail(String email) {
         emailField.sendKeys(email);
     }
-    public void EnterPassword(String password){
+
+    public void EnterPassword(String password) {
         passwordField.sendKeys(password);
     }
-    public void EnterQuizNumber(String quizNumber){
+
+    public void EnterQuizNumber(String quizNumber) {
         quizNumberField.sendKeys(quizNumber);
     }
-    public void MarkCheckboxGDPR(){
+
+    public void MarkCheckboxGDPR() {
         checkboxGDPR.click();
     }
 
-    public void ClickSubmitButton(){
+    public void ClickSubmitButton() {
         driver.manage().window().fullscreen();
         waitForElementTobeClickable(submitButton);
         submitButton.click();
     }
 
-    public String FirstNameBorderColor(){
+    public String FirstNameBorderColor() {
         String borderColor = firstNameField.getCssValue("border");
         return borderColor;
     }
-    public Boolean VisibilityOfWrongSumMessage(){
+
+    public Boolean VisibilityOfWrongSumMessage() {
         return wrongSumMessage.isDisplayed();
     }
-    public Boolean VisibilityOfErrorMessageGDPR(){
+
+    public Boolean VisibilityOfErrorMessageGDPR() {
         return errorMessageGDPR.isDisplayed();
     }
-    public String ColorOfErrorMessageGDPR(){
+
+    public String ColorOfErrorMessageGDPR() {
         String messageColor = errorMessageGDPR.getCssValue("border");
         return messageColor;
     }
+    public Boolean SuccessfulRegistration(){
+        return successfulRegistrationMessage.isDisplayed();
+    }
+
 
 }

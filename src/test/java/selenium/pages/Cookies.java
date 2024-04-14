@@ -6,22 +6,20 @@ import org.openqa.selenium.support.FindBy;
 import selenium.base.BasePage;
 
 public class Cookies extends BasePage{
-    public Cookies(WebDriver driver) {
-        super(driver);
-    }
+    //public Cookies(WebDriver driver) {super(driver);}
     @FindBy(css = "#cmplz-cookiebanner-container .cmplz-accept")
     private WebElement acceptCookieButton;
 
     @FindBy (css = "#cmplz-cookiebanner-container")
     private WebElement cookieBanner;
 
-
     public void ClickCookie(){
         acceptCookieButton.click();
     }
-    public Boolean staleCookie(){
-        ClickCookie();
+
+    public Boolean StaleCookie(){
         waitForElementToBeStale(cookieBanner);
-        return cookieBanner.isDisplayed();
+        Boolean staleBanner =!cookieBanner.isDisplayed();
+        return staleBanner;
     }
 }
