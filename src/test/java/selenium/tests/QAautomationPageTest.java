@@ -30,21 +30,21 @@ public class QAautomationPageTest extends MainTest {
     public void openQAautomationPage() {
         cookies = new Cookies();
         homePage = new HomePage();
-        cookies.ClickCookie();
+        cookies.clickCookie();
         homePage.qaAutomationLinkClick();
     }
 
     @Test
-    public void VisibilityOfFilterRemote() {
+    public void visibilityOfFilterRemote() {
         qaAutomationPage = new QAautomationPage();
-        Boolean filterRemoteVisible = qaAutomationPage.VisibilityOfFilterRemote();
+        Boolean filterRemoteVisible = qaAutomationPage.visibilityOfFilterRemote();
         assertTrue(filterRemoteVisible == Boolean.TRUE);
     }
 
     @Test
-    public void VisibilityOfFilterVarna() {
+    public void visibilityOfFilterVarna() {
         qaAutomationPage = new QAautomationPage();
-        Boolean filterVarnaVisible = qaAutomationPage.VisibilityOfFilterVarna();
+        Boolean filterVarnaVisible = qaAutomationPage.visibilityOfFilterVarna();
         assertTrue(filterVarnaVisible == Boolean.TRUE);
     }
 

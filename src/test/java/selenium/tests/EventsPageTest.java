@@ -16,7 +16,7 @@ public class EventsPageTest extends BasePage {
     public void openEventsPage() {
         cookies = new Cookies();
         homePage = new HomePage();
-        cookies.ClickCookie();
+        cookies.clickCookie();
         homePage.qaAutomationLinkClick();
     }
 

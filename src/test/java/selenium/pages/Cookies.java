@@ -13,13 +13,11 @@ public class Cookies extends BasePage{
     @FindBy (css = "#cmplz-cookiebanner-container")
     private WebElement cookieBanner;
 
-    public void ClickCookie(){
+    public void clickCookie(){
         acceptCookieButton.click();
-    }
-
-    public Boolean StaleCookie(){
         waitForElementToBeStale(cookieBanner);
-        Boolean staleBanner =!cookieBanner.isDisplayed();
-        return staleBanner;
     }
+    public Boolean cookieBannerVisible(){
+        return cookieBanner.isDisplayed();
+        }
 }

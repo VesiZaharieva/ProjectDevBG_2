@@ -13,7 +13,7 @@ public class EventsPage extends BasePage {
     @FindBy(css = ".page-title")
     private WebElement eventsTitle;
 
-    public String GetEventsTitle(){
+    public String getEventsTitle(){
         return eventsTitle.getText();
     }
 }

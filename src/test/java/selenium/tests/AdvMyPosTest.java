@@ -1,6 +1,9 @@
 package selenium.tests;
 
 import com.opencsv.exceptions.CsvException;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -31,15 +34,21 @@ public class AdvMyPosTest extends MainTest {
         cookies = new Cookies();
         homePage = new HomePage();
         qaAutomationPage = new QAautomationPage();
-        cookies.ClickCookie();
+        cookies.clickCookie();
         homePage.qaAutomationLinkClick();
         qaAutomationPage.scrollAndClickAdvMyPos();
     }
+    @Epic("Apply to job advertisement")
+    @Feature("Open new application")
+    @Story("Click Apply button")
     @Test
     public void applyAdvMyPos(){
         advMyPosPage = new AdvMyPosPage();
         assertTrue(advMyPosPage.clickApplyButton() == Boolean.TRUE);
     }
+    @Epic("Apply to job advertisement")
+    @Feature("Fulfil the application form ")
+    @Story("Enter not valid data")
     @Test(dataProvider = "notvalid-application-data")
     public void applyNotValidData(String names, String email, String text, String number){
         advMyPosPage = new AdvMyPosPage();

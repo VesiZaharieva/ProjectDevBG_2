@@ -1,5 +1,6 @@
 package selenium.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,54 +42,59 @@ public class RegistrationForm extends BasePage {
     @FindBy(xpath = "//div[contains(@class, 'popup-notice-wrapper')]")
     private WebElement successfulRegistrationMessage;
 
-    public void EnterFirstName(String firstName) {
+    @Step("Enter first name")
+    public void enterFirstName(String firstName) {
         firstNameField.sendKeys(firstName);
     }
 
-    public void EnterFamilyName(String familyName) {
+    @Step("Enter family name")
+    public void enterFamilyName(String familyName) {
         familyNameField.sendKeys(familyName);
     }
 
-    public void EnterEmail(String email) {
+    @Step("Enter e-mail")
+    public void enterEmail(String email) {
         emailField.sendKeys(email);
     }
 
-    public void EnterPassword(String password) {
+    @Step("Enter password")
+    public void enterPassword(String password) {
         passwordField.sendKeys(password);
     }
-
-    public void EnterQuizNumber(String quizNumber) {
-        quizNumberField.sendKeys(quizNumber);
+    @Step("Enter quiz number")
+    public void enterQuizNumber(String quizNumber) {
+                quizNumberField.sendKeys(quizNumber);
     }
-
-    public void MarkCheckboxGDPR() {
-        checkboxGDPR.click();
+    @Step("Check GDPR")
+    public void markCheckboxGDPR() {
+                checkboxGDPR.click();
     }
-
-    public void ClickSubmitButton() {
+    @Step("Click submit button")
+    public void clickSubmitButton() {
         driver.manage().window().fullscreen();
         waitForElementTobeClickable(submitButton);
         submitButton.click();
     }
 
-    public String FirstNameBorderColor() {
+    public String firstNameBorderColor() {
         String borderColor = firstNameField.getCssValue("border");
         return borderColor;
     }
-
-    public Boolean VisibilityOfWrongSumMessage() {
+    @Step("Wrong sum message appears")
+    public Boolean visibilityOfWrongSumMessage() {
         return wrongSumMessage.isDisplayed();
     }
-
-    public Boolean VisibilityOfErrorMessageGDPR() {
+    @Step("Unselect GDPR message appears")
+    public Boolean visibilityOfErrorMessageGDPR() {
         return errorMessageGDPR.isDisplayed();
     }
-
-    public String ColorOfErrorMessageGDPR() {
+    @Step("Color of GDPR error message")
+    public String colorOfErrorMessageGDPR() {
         String messageColor = errorMessageGDPR.getCssValue("border");
         return messageColor;
     }
-    public Boolean SuccessfulRegistration(){
+    @Step("Successful registration message appears")
+    public Boolean successfulRegistration() {
         return successfulRegistrationMessage.isDisplayed();
     }
 

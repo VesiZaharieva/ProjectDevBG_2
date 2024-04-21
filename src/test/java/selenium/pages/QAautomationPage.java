@@ -55,12 +55,12 @@ public class QAautomationPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class, 'job-list-item')][@data-job-id='326517']")
     private WebElement advLuxsoft;
 
-    public Boolean VisibilityOfFilterRemote() {
+    public Boolean visibilityOfFilterRemote() {
         DriverFactory.getDriver().manage().window().fullscreen();
         return filterRemote.isDisplayed();
     }
 
-    public Boolean VisibilityOfFilterVarna() {
+    public Boolean visibilityOfFilterVarna() {
         DriverFactory.getDriver().manage().window().fullscreen();
         return filterVarna.isDisplayed();
     }

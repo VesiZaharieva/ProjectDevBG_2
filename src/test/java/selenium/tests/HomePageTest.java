@@ -2,6 +2,7 @@ package selenium.tests;
 
 import com.opencsv.exceptions.CsvException;
 import dev.selenium.driver.DriverFactory;
+import io.qameta.allure.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -32,93 +33,115 @@ public class HomePageTest extends MainTest {
     }
 
     @BeforeMethod
-    public void AcceptCookies() {
-        homePage = new HomePage();
+    public void acceptCookies() {
         cookies = new Cookies();
-        cookies.ClickCookie();
+        cookies.clickCookie();
     }
 
+    @Epic("User registration")
+    @Feature("Open registration screen")
+    @Story("Successful opening")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
-    public void StartRegistration() {
-        Boolean registerScreenOpened = homePage.UserRegistrateClick();
-        assertTrue(registerScreenOpened = Boolean.TRUE);
+    public void startRegistration() {
+        homePage = new HomePage();
+        assertTrue(homePage.userRegistrateClick());
     }
-
+    @Epic("User registration")
+    @Feature("Entering data")
+    @Story("Entering valid data")
+    @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "enter-data")
-    public void RegisterValidData(String name, String familyName, String email, String password, String number) {
-        homePage.UserRegistrateClick();
+    public void registerValidData(String name, String familyName, String email, String password, String number) {
+        homePage.userRegistrateClick();
         registrationForm = new RegistrationForm();
-        registrationForm.EnterFirstName(name);
-        registrationForm.EnterFamilyName(familyName);
-        registrationForm.EnterEmail(email);
-        registrationForm.EnterPassword(password);
-        registrationForm.EnterQuizNumber(number);
-        registrationForm.MarkCheckboxGDPR();
-        registrationForm.ClickSubmitButton();
-        assertTrue(registrationForm.SuccessfulRegistration());
+        registrationForm.enterFirstName(name);
+        registrationForm.enterFamilyName(familyName);
+        registrationForm.enterEmail(email);
+        registrationForm.enterPassword(password);
+        registrationForm.enterQuizNumber(number);
+        registrationForm.markCheckboxGDPR();
+        registrationForm.clickSubmitButton();
+        assertTrue(registrationForm.successfulRegistration());
     }
-
+    @Epic("User registration")
+    @Feature("Entering data")
+    @Story("Leave one field empty")
+    @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "notvalid-data")
-    public void RegisterEmptyField(String name, String familyName, String email, String password, String number) {
-        homePage.UserRegistrateClick();
+    public void registerEmptyField(String name, String familyName, String email, String password, String number) {
+        homePage.userRegistrateClick();
         registrationForm = new RegistrationForm();
-        registrationForm.EnterFirstName(name);
-        registrationForm.EnterFamilyName(familyName);
-        registrationForm.EnterEmail(email);
-        registrationForm.EnterPassword(password);
-        registrationForm.EnterQuizNumber(number);
-        registrationForm.MarkCheckboxGDPR();
-        registrationForm.ClickSubmitButton();
-        Boolean notValidRegistrationExpected = !registrationForm.SuccessfulRegistration() && (homePage.registerScreen).isDisplayed();
+        registrationForm.enterFirstName(name);
+        registrationForm.enterFamilyName(familyName);
+        registrationForm.enterEmail(email);
+        registrationForm.enterPassword(password);
+        registrationForm.enterQuizNumber(number);
+        registrationForm.markCheckboxGDPR();
+        registrationForm.clickSubmitButton();
+        Boolean notValidRegistrationExpected = !registrationForm.successfulRegistration() && (homePage.registerScreen).isDisplayed();
         assertTrue(notValidRegistrationExpected);
         //String colors = registrationForm.FirstNameBorderColor();
         //System.out.println(colors);
         //assertEquals("1px solid rgb(255, 0, 0)", colors);
     }
-
+    @Epic("User registration")
+    @Feature("Entering data")
+    @Story("Entering wrong sum")
+    @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "enter-data")
-    public void RegisterWrongSum(String name, String familyName, String email, String password, String number) {
-        homePage.UserRegistrateClick();
+    public void registerWrongSum(String name, String familyName, String email, String password, String number) {
+        homePage.userRegistrateClick();
         registrationForm = new RegistrationForm();
-        registrationForm.EnterFirstName(name);
-        registrationForm.EnterFamilyName(familyName);
-        registrationForm.EnterEmail(email);
-        registrationForm.EnterPassword(password);
-        registrationForm.EnterQuizNumber(number);
-        registrationForm.MarkCheckboxGDPR();
-        registrationForm.ClickSubmitButton();
-        Boolean errorMessageDisplayed = registrationForm.VisibilityOfWrongSumMessage();
+        registrationForm.enterFirstName(name);
+        registrationForm.enterFamilyName(familyName);
+        registrationForm.enterEmail(email);
+        registrationForm.enterPassword(password);
+        registrationForm.enterQuizNumber(number);
+        registrationForm.markCheckboxGDPR();
+        registrationForm.clickSubmitButton();
+        Boolean errorMessageDisplayed = registrationForm.visibilityOfWrongSumMessage();
         assertTrue(errorMessageDisplayed == Boolean.TRUE);
     }
-
+    @Epic("User registration")
+    @Feature("Entering data")
+    @Story("Not checking GDPR")
+    @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "enter-data")
-    public void RegisterWithoutGDPR(String name, String familyName, String email, String password, String number) {
-        homePage.UserRegistrateClick();
+    public void registerWithoutGDPR(String name, String familyName, String email, String password, String number) {
+        homePage.userRegistrateClick();
         registrationForm = new RegistrationForm();
-        registrationForm.EnterFirstName(name);
-        registrationForm.EnterFamilyName(familyName);
-        registrationForm.EnterEmail(email);
-        registrationForm.EnterPassword(password);
-        registrationForm.EnterQuizNumber(number);
-        registrationForm.ClickSubmitButton();
+        registrationForm.enterFirstName(name);
+        registrationForm.enterFamilyName(familyName);
+        registrationForm.enterEmail(email);
+        registrationForm.enterPassword(password);
+        registrationForm.enterQuizNumber(number);
+        registrationForm.clickSubmitButton();
 
         System.out.println("Test results:");
-        Boolean MessageDisplayed = registrationForm.VisibilityOfErrorMessageGDPR();
+        Boolean MessageDisplayed = registrationForm.visibilityOfErrorMessageGDPR();
         assertTrue(MessageDisplayed == Boolean.TRUE);
 
-        String color = registrationForm.ColorOfErrorMessageGDPR();
+        String color = registrationForm.colorOfErrorMessageGDPR();
         System.out.println(color);
         softAssert.assertEquals("1px none rgb(255, 0, 0)", color);
     }
-
+    @Epic("QA jobs page")
+    @Feature("Go to QA page")
+    @Story("Successful opening QA page")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
-    public void QAModule() {
+    public void qaModule() {
         String qaUrl = homePage.qaLinkClick();
         assertEquals(qaUrl, "https://dev.bg/company/jobs/quality-assurance/");
     }
 
+    @Epic("QA Automation jobs page")
+    @Feature("Go to QA Automation page")
+    @Story("Successful opening QA Automation page")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
-    public void QAautomationModule() {
+    public void qaAutomationModule() {
         String qaAutomationUrl = homePage.qaAutomationLinkClick();
         assertEquals(qaAutomationUrl, "https://dev.bg/company/jobs/automation-qa/");
     }

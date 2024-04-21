@@ -2,6 +2,9 @@ package selenium.tests;
 
 import com.opencsv.exceptions.CsvException;
 import dev.selenium.driver.DriverFactory;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -28,53 +31,61 @@ public class HeaderTest extends MainTest {
     }
 
     @BeforeMethod
-    public void AcceptCookies() {
+    public void acceptCookies() {
         homePage = new HomePage();
         cookies = new Cookies();
-        cookies.ClickCookie();
+        cookies.clickCookie();
     }
-
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Open Job advertisements page")
+    @Story("Open Job advertisements page")
     @Test(dataProvider = "starting-urls")
-    public void GoToAdvertisements(String url) {
+    public void goToAdvertisements(String url) {
         homePageHeader = new HomePageHeader();
         DriverFactory.getDriver().get(url);
         assertEquals(homePageHeader.clickAdvertisements(), "https://dev.bg/");
     }
-
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Open Job advertisements page")
+    @Story("Open Job advertisements for Varna")
     @Test(dataProvider = "starting-urls")
-    public void GoToAdvertisementsVarna(String url) {
+    public void goToAdvertisementsVarna(String url) {
         homePageHeader = new HomePageHeader();
         DriverFactory.getDriver().get(url);
         assertEquals(homePageHeader.selectAdvCity(), "https://dev.bg/varna/");
     }
-
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Open Companies page")
+    @Story("Open Companies page")
     @Test(dataProvider = "starting-urls")
-    public void GoToCompanies(String url) {
+    public void goToCompanies(String url) {
         homePageHeader = new HomePageHeader();
         DriverFactory.getDriver().get(url);
         assertEquals(homePageHeader.clickCompanies(), "https://dev.bg/company/");
     }
-
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Open Events page")
+    @Story("............")
     @Test(dataProvider = "starting-urls")
-    public void GoToEvents(String url) {
+    public void goToEvents(String url) {
         homePageHeader = new HomePageHeader();
         eventsPage = new EventsPage();
         DriverFactory.getDriver().get(url);
         homePageHeader.clickEvents();
-        String eventsTitle = eventsPage.GetEventsTitle();
+        String eventsTitle = eventsPage.getEventsTitle();
         assertEquals(eventsTitle, "Събитията на DEV.BG");
     }
     @Test(dataProvider = "starting-urls")
-    public void GoToEventsOfDevbg(String url) {
+    public void goToEventsOfDevbg(String url) {
         homePageHeader = new HomePageHeader();
         eventsPage = new EventsPage();
         DriverFactory.getDriver().get(url);
         homePageHeader.clickEventsOfDevbg();
-        String title = eventsPage.GetEventsTitle();
+        String title = eventsPage.getEventsTitle();
         assertEquals(title, "Събитията на DEV.BG");
     }
     @Test(dataProvider = "starting-urls")
-    public void GoToEventsUserGroups(String url) {
+    public void goToEventsUserGroups(String url) {
         homePageHeader = new HomePageHeader();
         eventsPage = new EventsPage();
         DriverFactory.getDriver().get(url);
@@ -82,21 +93,21 @@ public class HeaderTest extends MainTest {
     }
 
     @Test(dataProvider = "starting-urls")
-    public void GoToDigest(String url) {
+    public void goToDigest(String url) {
         homePageHeader = new HomePageHeader();
         DriverFactory.getDriver().get(url);
         assertEquals(homePageHeader.clickDigest(), "https://dev.bg/digest/");
     }
 
     @Test(dataProvider = "starting-urls")
-    public void GoToPodcast(String url) {
+    public void goToPodcast(String url) {
         homePageHeader = new HomePageHeader();
         DriverFactory.getDriver().get(url);
         assertEquals("https://dev.bg/podcast/", homePageHeader.clickPodcast());
     }
 
     @Test(dataProvider = "starting-urls")
-    public void GoToAboutUs(String url) {
+    public void goToAboutUs(String url) {
         homePageHeader = new HomePageHeader();
         DriverFactory.getDriver().get(url);
         assertEquals(homePageHeader.clickAboutDevbg(), "https://dev.bg/about-us/");

@@ -1,4 +1,5 @@
 package selenium.base;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,9 @@ import java.io.File;
 import org.apache.commons.io.FileUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -66,8 +70,11 @@ public class MainTest {
             File source = screenshot.getScreenshotAs(OutputType.FILE);
             String timestamp = new SimpleDateFormat("yyyy_MM_dd__hh_mm_ss").format(new Date());
             String fileName = result.getName() + "_" + timestamp + ".png";
+            Path path = Paths.get("./Screenshots", fileName);
             try {
-                FileUtils.copyFile(source, new File("./Screenshots/" + fileName));
+                Files.copy(source.toPath(), path);
+                Allure.addAttachment("Screenshot on Failure", "image/pgn", Files.newInputStream(path), ".pgn" );
+                //FileUtils.copyFile(source, new File("./Screenshots/" + fileName));
                 System.out.println("Screenshot taken: " + fileName);
             } catch (IOException e) {
                 e.printStackTrace();

@@ -19,11 +19,11 @@ public class QApageTest extends MainTest {
         cookies = new Cookies();
         qaPage = new QApage();
         homePage = new HomePage();
-        cookies.ClickCookie();
+        cookies.clickCookie();
         homePage.qaLinkClick();
     }
     @Test
-    public void VisibilityOfQAlogo(){
+    public void visibilityOfQAlogo(){
         qaPage = new QApage();
         Boolean qaLogoVisible = qaPage.qaLogoDisplayed();
         assertTrue(qaLogoVisible == Boolean.TRUE);
