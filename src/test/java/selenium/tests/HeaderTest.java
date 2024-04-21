@@ -65,7 +65,7 @@ public class HeaderTest extends MainTest {
     }
     @Epic("Click every Header menu and open correspondent page")
     @Feature("Open Events page")
-    @Story("............")
+    @Story("Open Dev.bg events page from menu label")
     @Test(dataProvider = "starting-urls")
     public void goToEvents(String url) {
         homePageHeader = new HomePageHeader();
@@ -75,6 +75,9 @@ public class HeaderTest extends MainTest {
         String eventsTitle = eventsPage.getEventsTitle();
         assertEquals(eventsTitle, "Събитията на DEV.BG");
     }
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Open Events page")
+    @Story("Open Dev.bg events page from first submenu")
     @Test(dataProvider = "starting-urls")
     public void goToEventsOfDevbg(String url) {
         homePageHeader = new HomePageHeader();
@@ -84,6 +87,9 @@ public class HeaderTest extends MainTest {
         String title = eventsPage.getEventsTitle();
         assertEquals(title, "Събитията на DEV.BG");
     }
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Open Events page")
+    @Story("Open User Groups")
     @Test(dataProvider = "starting-urls")
     public void goToEventsUserGroups(String url) {
         homePageHeader = new HomePageHeader();
@@ -91,21 +97,27 @@ public class HeaderTest extends MainTest {
         DriverFactory.getDriver().get(url);
         assertEquals(homePageHeader.clickEventsUserGroups(), "https://dev.bg/groups/");
     }
-
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Open Digest page")
+    @Story("Open Digest page")
     @Test(dataProvider = "starting-urls")
     public void goToDigest(String url) {
         homePageHeader = new HomePageHeader();
         DriverFactory.getDriver().get(url);
         assertEquals(homePageHeader.clickDigest(), "https://dev.bg/digest/");
     }
-
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Open Podcast page")
+    @Story("Open Podcast page")
     @Test(dataProvider = "starting-urls")
     public void goToPodcast(String url) {
         homePageHeader = new HomePageHeader();
         DriverFactory.getDriver().get(url);
         assertEquals("https://dev.bg/podcast/", homePageHeader.clickPodcast());
     }
-
+    @Epic("Click every Header menu and open correspondent page")
+    @Feature("Click About Dev.bg")
+    @Story("Open About Us page")
     @Test(dataProvider = "starting-urls")
     public void goToAboutUs(String url) {
         homePageHeader = new HomePageHeader();
